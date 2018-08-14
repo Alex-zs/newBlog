@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Alex的博客 | Alex's blog</title>
+    <link rel="shortcut icon" href="{{Host}}/static/img/favicon.ico">
+    <!-- Bootstrap Core CSS -->
+    <link href="https://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="{{Host}}/static/css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{Host}}/static/css/markdown.css">
+
+    <style>
+        img {
+            max-width:100%!important;
+        }
+        #category {
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 30px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis; 
+        }
+    </style>
+    <link rel="stylesheet" href="{{Host}}/static/css/monokai-sublime.css">
+    <script src="{{Host}}/static/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script> -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+          $("h2,h3,h4,h5,h6").each(function(i,item){
+            var tag = $(item).get(0).localName;
+            $(item).attr("id","wow"+i);
+            $("#category").append('<a class="new'+tag+'" href="#wow'+i+'">'+$(this).text()+'</a></br>');
+            $(".newh2").css("margin-left",0);
+            $(".newh3").css("margin-left",20);
+            $(".newh4").css("margin-left",40);
+            $(".newh5").css("margin-left",60);
+            $(".newh6").css("margin-left",80);
+          });
+    $('#diary').click(function(){
+        $.ajax({
+            url:"https://ktchen.cn/checkout/",
+            type:'GET',
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function(data){
+                var status = $.parseJSON(data).status;
+                if(status == 1){
+                    window.location.href="https://ktchen.cn/diary/";
+                }
+                else{
+                    alert("暂未开放！");
+                }
+            },
+        })
+    })
+
+     });
+    </script>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/">Alex</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                                                        <li>
+                        <a href="/">home</a>
+                    </li>
+                                        <li>
+                        <a href='#'></a>
+                    </li>
+                                                        <li>
+                        <a href="/photo/">photo</a>
+                    </li>
+                                        <li>
+                        <a href='#'></a>
+                    </li>
+                                                        <li>
+                        <a id="diary" href="#">diary</a>
+                    </li>
+                                        <li>
+                        <a href='#'></a>
+                    </li>
+                                                        <li>
+                        <a href="/about/">about</a>
+                    </li>
+                                                       <li>
+                        <a href='#'></a>
+                    </li>
+                                            <li>
+                        <a href='#'></a>
+                    </li>
+                            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+{% block content %}
+<!-- Page Header -->
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" id="bgImg" style="background-image: url('{{Host}}{{background_image}}')" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Alex</h1>
+                        <span class="subheading">要么孤独  要么庸俗</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    
+    {% for article in article_list%}
+     <div class="post-preview">
+        <a href="/detail/{{article.id}}/">
+            <h3 class="post-title">
+                {{article.title}}
+            </h3>
+            <div style="max-height:300px;overflow:hidden;">
+                <img src="{{Host}}{{article.cover.url}}" alt="" style="overflow:hidden;">
+            </div>
+            <p class="post-subtitle">
+               {{article.abstract}}
+            </p>
+        </a>
+        <p class="post-meta">Posted by <a href="#">Alex</a> {{article.time|date:"Y-m-d"}}</p>
+    </div>
+    <hr>
+    {% endfor %}
+
+{% include 'pagination.html' %}  
+</div>
+        
+</div>
+</div>
+<hr>
+{% endblock %}
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/alex-47-63">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://twitter.com/Alex18551035">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/profile.php?id=100022136333381">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/Alex-zs">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                    </li>
+                </ul>
+                    <p class="copyright text-muted">Copyright &copy; Alex 2018</p> 
+
+                    <p class="copyright text-muted"><a target="_blank" href="http://www.miitbeian.gov.cn">鲁ICP备18019527号-1</a> </p>
+            </div>
+
+        </div>
+    </div>
+</footer><!-- jQuery -->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<!-- Theme JavaScript -->
+<script src="{{Host}}/static/js/clean-blog.min.js"></script>
+
+
+</body>
+
+</html>

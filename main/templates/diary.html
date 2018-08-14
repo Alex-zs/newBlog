@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% block content %}
+<!-- Page Header -->
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" id="bgImg" style="background-image: url('{{Host}}{{background_image}}')" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Alex</h1>
+                        <hr class="small">
+                        <span class="subheading">要么孤独  要么庸俗</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    
+    {% for diary in diary_list %}
+     <div class="post-preview">
+            <h3 class="post-title">
+                {{diary.time}}
+            </h3>
+            <h4 class="post-subtitle">
+               {{diary.content|safe}}
+            </h4>
+        <p class="post-meta">Posted by <a href="#">Alex</a> {{article.time|date:"Y-m-d"}}</p>
+    </div>
+    <hr>
+    {% endfor %}
+
+{% include 'pagination.html' %}  
+</div>
+        
+</div>
+</div>
+<hr>
+{% endblock %}

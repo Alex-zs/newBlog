@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block content %}
+<!-- Page Header -->
+
+    <header class="intro-header" style="background-image: url({{Host}}{{introduction.cover.url}})">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{introduction.title}}</h1>
+                        <h2 class="subheading">{{introduction.abstract}}</h2>
+                        <span class="meta">Posted by <a href="#">Alex</a> {{introduction.time| date:"Y-m-d"}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+            <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-lg-2" id="category"></div> -->
+                <!-- <div class="col-lg-8 col-md-10"> -->
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <h1>关于我</h1>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=412175360&auto=1&height=66"></iframe>
+<hr />
+{{introduction.content|safe}}
+
+        </div>
+        </div>
+        </div>
+         
+    </article>
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="aboutme" ></div>
+<script type="text/javascript"> 
+(function(){
+var appid = 'cytKbQJMO'; 
+var conf = 'prod_d8bf87100774db42d935b2cdd95ba9f8'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) {
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script>  
+</div>
+</div>
+
+<hr>
+ <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+ <script type="text/javascript">
+     window.onload = function(){
+        $('.textarea-fw').css('color','black');
+        $('.wrap-word-gw').css('color','black');
+        $(".post-wrap-main").css("background-image","none");
+        setTimeout('$(".module-mobile-cmt-float-bar").css("display","none");',50);
+     }
+ </script>
+{% endblock %}
